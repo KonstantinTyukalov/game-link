@@ -20,16 +20,21 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   window.webContents.openDevTools();
+};
 
-  const httpServer = createServer();
+const httpServer = createServer();
+
+const setupSockets = () => {
   const io = new Server(httpServer);
 
   io.on("connection", () => {
     console.log("New connection");
   });
 
-  httpServer.listen(9001);
+  // io.on("input:mouseevents", (args) => {});
 };
+
+httpServer.listen(9001);
 
 app.on("ready", createWindow);
 
@@ -42,5 +47,6 @@ app.on("window-all-closed", () => {
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
+    setupSockets();
   }
 });
