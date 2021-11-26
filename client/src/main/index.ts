@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import { io } from "socket.io-client";
+import path from "path";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -12,6 +13,11 @@ const createWindow = (): void => {
   const window = new BrowserWindow({
     height: 600,
     width: 800,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(app.getAppPath(), "src/main/preload.js"),
+    },
   });
 
   // and load the index.html of the app.
