@@ -5,12 +5,8 @@
       "path": "."
     },
     {
-      "name": "Server",
-      "path": "src/main/server"
-    },
-    {
-      "name": "Client",
-      "path": "src/main/client"
+      "name": "Main",
+      "path": "src/main"
     },
     {
       "name": "Renderer",
