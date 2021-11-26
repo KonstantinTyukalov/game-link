@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import { io } from "socket.io-client";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -18,6 +19,8 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   window.webContents.openDevTools();
+
+  const socket = io("http://10.0.7.73:9001");
 };
 
 app.on("ready", createWindow);
