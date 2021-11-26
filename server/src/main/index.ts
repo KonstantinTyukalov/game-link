@@ -1,4 +1,6 @@
 import { app, BrowserWindow } from "electron";
+import { createServer } from "http";
+import { Server } from "socket.io";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -18,6 +20,15 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   window.webContents.openDevTools();
+
+  const httpServer = createServer();
+  const io = new Server(httpServer);
+
+  io.on("connection", () => {
+    console.log("New connection");
+  });
+
+  httpServer.listen(9001);
 };
 
 app.on("ready", createWindow);
