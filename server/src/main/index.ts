@@ -35,7 +35,6 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   window.webContents.openDevTools();
-
   const httpServer = createServer();
 
   setupSocketConnection(httpServer);
