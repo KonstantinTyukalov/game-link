@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "name": "Configs (Root)",
+      "path": "."
+    },
+    {
+      "path": "client"
+    },
+    {
+      "path": "server"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "mhutchie.git-graph"
+    ]
+  },
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/build/**/*": true,
+      "**/.idea": true,
+      "**/.vs": true,
+      "**/*.sln": true,
+      "**/bin": true,
+      "**/obj": true
+    },
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[ignore]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+    }
+  }
+}
