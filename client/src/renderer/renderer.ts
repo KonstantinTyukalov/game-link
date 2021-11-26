@@ -1,14 +1,13 @@
-import { subscribeToMouseEvents } from "../main/subscribers/mouse-events";
-import { subscribeToKeyboardEvents } from "../main/subscribers/keyboard-events";
+import { subscribeToMouseEvents } from "./subscribers/mouse-events";
+import { subscribeToKeyboardEvents } from "./subscribers/keyboard-events";
 
-declare const window: { bridge: any };
+declare const window: { bridge: unknown };
 
 console.log("window.bridge ", window.bridge);
 
 console.log(
   '👋 This message is being logged by "renderer.js", included via webpack'
 );
-const bridge = window.bridge;
 
 subscribeToMouseEvents(document);
 
