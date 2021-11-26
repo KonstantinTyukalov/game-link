@@ -1,4 +1,13 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { join } from "path";
+
+ipcMain.on("keyboardevent", (event, args) => {
+  console.log(args); // prints "ping"
+});
+
+ipcMain.on("mouseevent", (event, args) => {
+  console.log(args); // prints "ping"
+});
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -11,6 +20,11 @@ const createWindow = (): void => {
   const window = new BrowserWindow({
     height: 600,
     width: 800,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: join(app.getAppPath(), "src", "main", "preload.js"),
+    },
   });
 
   // and load the index.html of the app.
