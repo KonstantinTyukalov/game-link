@@ -2,12 +2,10 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { io } from "socket.io-client";
 import { CustomKeyboardEvent } from "./interfaces/CustomKeyboardEvent";
-import { CustomMouseEvent } from "./interfaces/MouseEvent";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 if (require("electron-squirrel-startup")) {
-  // eslint-disable-line global-require
   app.quit();
 }
 
@@ -22,22 +20,20 @@ const createWindow = (): void => {
     },
   });
 
-  // and load the index.html of the app.
   window.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  // Open the DevTools.
   window.webContents.openDevTools();
 };
 
 const socket = io("http://10.0.7.73:9001");
 
 ipcMain.on("keyboardevent", (_, event: CustomKeyboardEvent) => {
-  console.log(event); // prints "ping"
+  console.log(event);
 });
 
-ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
-  console.log(event); // prints "ping"
-});
+// ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
+//   console.log(event);
+// });
 
 app.on("ready", createWindow);
 

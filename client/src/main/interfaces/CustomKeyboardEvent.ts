@@ -1,8 +1,4 @@
 import { KeyboardKeyDownEvent } from "./KeyboardKeyDownEvent";
-import { KeyboardKeyUpEvent } from "./KeyboardKeyPress";
-import { KeyboardKeyPressEvent } from "./KeyboardKeyPressEvent";
+import { KeyboardKeyUpEvent } from "./KeyboardKeyUpEvent";
 
-export type CustomKeyboardEvent =
-  | KeyboardKeyPressEvent
-  | KeyboardKeyDownEvent
-  | KeyboardKeyUpEvent;
+export type CustomKeyboardEvent = KeyboardKeyDownEvent | KeyboardKeyUpEvent;
