@@ -48,24 +48,22 @@ desktopCapturer.getEntireScreenSource().then(async (source) => {
 ipcRenderer.on("stream:connection", () => {
   peerConnection = new RTCPeerConnection(configuration);
 
-  console.log(peerConnection);
-  console.log(mediaStream);
-
   peerConnection.onicecandidate = (e) => {
     if (e.candidate) {
       ipcRenderer.send("stream:candidate", e.candidate);
     }
   };
 
-  mediaStream
-    .getTracks()
-    .forEach((track) => peerConnection.addTrack(track, mediaStream));
+  mediaStream.getTracks().forEach((track) => {
+    peerConnection.addTrack(track, mediaStream);
+  });
 
   peerConnection
     .createOffer()
     .then((sdp) => peerConnection.setLocalDescription(sdp))
     .then(() => {
-      ipcRenderer.send("stream:offer", peerConnection.localDescription);
+      const { sdp, type } = peerConnection.localDescription;
+      ipcRenderer.send("stream:offer", { sdp, type });
     });
 });
 
@@ -81,8 +79,4 @@ ipcRenderer.on(
   (e: unknown, description: RTCSessionDescription) => {
     peerConnection.setRemoteDescription(description);
   }
-);
-
-console.log(
-  '👋 This message is being logged by "renderer.js", included via webpack'
 );

@@ -15,30 +15,39 @@ const configuration = {
 
 let peerConnection: RTCPeerConnection;
 
+const video = document.querySelector("video");
+
 bridge.ipcRenderer.on(
   "stream:offer",
   (e: unknown, description: RTCSessionDescription) => {
+    console.log(description);
+
     peerConnection = new RTCPeerConnection(configuration);
     peerConnection
       .setRemoteDescription(description)
       .then(() => peerConnection.createAnswer())
       .then((sdp) => peerConnection.setLocalDescription(sdp))
       .then(() => {
-        bridge.ipcRenderer.emit(
-          "stream:answer",
-          peerConnection.localDescription
-        );
+        const { sdp, type } = peerConnection.localDescription;
+        bridge.ipcRenderer.send("stream:answer", { sdp, type });
       });
 
     peerConnection.ontrack = (event) => {
-      const video = document.querySelector("video");
       video.srcObject = event.streams[0];
+      video.onloadedmetadata = () => video.play();
     };
 
-    // peerConnection.onicecandidate = (event) => {
-    //   if (event.candidate) {
-    //     socket.emit("candidate", id, event.candidate);
-    //   }
-    // };
+    peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        bridge.ipcRenderer.send("stream:candidate", event.candidate);
+      }
+    };
+  }
+);
+
+bridge.ipcRenderer.on(
+  "stream:candidate",
+  (e: unknown, candidate: RTCIceCandidateInit) => {
+    peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
   }
 );

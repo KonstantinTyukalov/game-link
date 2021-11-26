@@ -30,19 +30,21 @@ const createWindow = (): void => {
   const httpServer = createServer();
   const io = new Server(httpServer);
 
-  let watcher: string;
+  window.webContents.on("dom-ready", () => {
+    io.sockets.on("connection", (socket) => {
+      window.webContents.send("stream:connection");
 
-  io.on("connection", (socket) => {
-    watcher = socket.id;
+      ipcMain.on("stream:offer", (_, description) => {
+        socket.emit("stream:offer", description);
+      });
 
-    ipcMain.emit("stream:connection");
+      ipcMain.on("stream:candidate", (_, candidate) => {
+        window.webContents.send("stream:cadindate", candidate);
+      });
 
-    ipcMain.on("stream:offer", (_, description) => {
-      socket.to(watcher).emit("stream:offer", description);
-    });
-
-    io.on("stream:answer", (description) => {
-      ipcMain.emit("stream:answer", description);
+      socket.on("stream:answer", (description) => {
+        window.webContents.send("stream:answer", description);
+      });
     });
   });
 
