@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { createServer } from "http";
 import { Server } from "socket.io";
@@ -30,11 +30,26 @@ const createWindow = (): void => {
   const httpServer = createServer();
   const io = new Server(httpServer);
 
-  io.on("connection", () => {
-    console.log("New connection");
+  let watcher: string;
+
+  io.on("connection", (socket) => {
+    watcher = socket.id;
+
+    ipcMain.emit("stream:connection");
+
+    ipcMain.on("stream:offer", (_, description) => {
+      socket.to(watcher).emit("stream:offer", description);
+    });
+
+    io.on("stream:answer", (description) => {
+      ipcMain.emit("stream:answer", description);
+    });
   });
 
-  httpServer.listen(9001);
+  // const peerServer = PeerServer({ port: 9002, path: "/streaming" });
+  // peerServer.listen();
+
+  httpServer.listen(9002);
 };
 
 app.on("ready", createWindow);

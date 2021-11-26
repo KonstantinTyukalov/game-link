@@ -7,8 +7,10 @@ contextBridge.exposeInMainWorld("bridge", {
   },
   desktopCapturer: {
     async getEntireScreenSource() {
-      const sources = await desktopCapturer.getSources({ types: ["screen"] });
-      return sources.find((x) => x.name === "Entire Screen");
+      const sources = await desktopCapturer.getSources({
+        types: ["screen", "window"],
+      });
+      return sources.find((x) => x.name.includes("Screen"));
     },
   },
 });

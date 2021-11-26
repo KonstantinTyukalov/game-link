@@ -34,7 +34,15 @@ const createWindow = (): void => {
   // Open the DevTools.
   window.webContents.openDevTools();
 
-  const socket = io("http://10.0.7.73:9001");
+  const socket = io("http://localhost:9002");
+
+  socket.on("stream:offer", (description) => {
+    ipcMain.emit("stream:offer", description);
+  });
+
+  ipcMain.on("stream:answer", (_, description) => {
+    socket.emit("stream:answer", description);
+  });
 };
 
 app.on("ready", createWindow);
