@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from "electron";
+import { join } from "path";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -13,6 +14,11 @@ const createWindow = (): void => {
   const window = new BrowserWindow({
     height: 600,
     width: 800,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: join(app.getAppPath(), "src", "main", "preload.js"),
+    },
   });
 
   // and load the index.html of the app.
