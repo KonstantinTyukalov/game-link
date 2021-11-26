@@ -47,6 +47,8 @@
           "@electron-forge/plugin-webpack",
           {
             "mainConfig": "./webpack.main.config.js",
+            "port": "3001",
+            "loggerPort": "9001",
             "renderer": {
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
@@ -84,6 +86,7 @@
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
+    "peer": "^0.6.1",
     "socket.io": "^4.4.0"
   }
 }

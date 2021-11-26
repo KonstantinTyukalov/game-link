@@ -1,4 +1,5 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { join } from "path";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -13,6 +14,11 @@ const createWindow = (): void => {
   const window = new BrowserWindow({
     height: 600,
     width: 800,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: join(app.getAppPath(), "src", "main", "preload.js"),
+    },
   });
 
   // and load the index.html of the app.
@@ -24,11 +30,28 @@ const createWindow = (): void => {
   const httpServer = createServer();
   const io = new Server(httpServer);
 
-  io.on("connection", () => {
-    console.log("New connection");
+  window.webContents.on("dom-ready", () => {
+    io.sockets.on("connection", (socket) => {
+      window.webContents.send("stream:connection");
+
+      ipcMain.on("stream:offer", (_, description) => {
+        socket.emit("stream:offer", description);
+      });
+
+      ipcMain.on("stream:candidate", (_, candidate) => {
+        window.webContents.send("stream:cadindate", candidate);
+      });
+
+      socket.on("stream:answer", (description) => {
+        window.webContents.send("stream:answer", description);
+      });
+    });
   });
 
-  httpServer.listen(9001);
+  // const peerServer = PeerServer({ port: 9002, path: "/streaming" });
+  // peerServer.listen();
+
+  httpServer.listen(9002);
 };
 
 app.on("ready", createWindow);
