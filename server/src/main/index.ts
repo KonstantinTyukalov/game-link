@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from "electron";
-import { createServer } from "http";
-import { Server } from "socket.io";
+import { createServer, Server as HttpServer } from "http";
+import { Server as SocketServer } from "socket.io";
+import { hadnleKeyboardEvent } from "./input-handlers/keyboard-input-handlers";
+import { CustomKeyboardEvent } from "./interfaces/CustomKeyboardEvent";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -8,6 +10,19 @@ if (require("electron-squirrel-startup")) {
   // eslint-disable-line global-require
   app.quit();
 }
+
+const setupSocketConnection = (httpServer: HttpServer) => {
+  const io = new SocketServer(httpServer);
+
+  io.on("connection", () => {
+    console.log("New connection");
+  });
+
+  io.on("keyboardevent", (event: CustomKeyboardEvent) => {
+    console.log(event);
+    hadnleKeyboardEvent(event);
+  });
+};
 
 const createWindow = (): void => {
   const window = new BrowserWindow({
@@ -22,11 +37,8 @@ const createWindow = (): void => {
   window.webContents.openDevTools();
 
   const httpServer = createServer();
-  const io = new Server(httpServer);
 
-  io.on("connection", () => {
-    console.log("New connection");
-  });
+  setupSocketConnection(httpServer);
 
   httpServer.listen(9001);
 };
