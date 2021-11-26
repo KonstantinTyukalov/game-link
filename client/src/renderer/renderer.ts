@@ -8,15 +8,15 @@ window.addEventListener("load", () => {
   const listener = new GamepadListener();
 
   listener.on("gamepad:connected", (event: any) => {
-    const { index, gamepad } = event.detail;
+    const { gamepad } = event.detail;
 
-    console.log(index, gamepad);
+    console.log("Connected");
   });
 
   listener.on("gamepad:disconnected", (event: any) => {
-    const { index } = event.detail;
+    const { gamepad } = event.detail;
 
-    console.log(index);
+    console.log("Disconnected");
   });
 
   listener.on("gamepad:axis", (event: any) => {
@@ -32,8 +32,18 @@ window.addEventListener("load", () => {
   });
 
   listener.on("gamepad:button", (event: any) => {
-    const { index, button, value, pressed } = event.detail;
-    console.log(index, button, value, pressed);
+    const { button, pressed } = event.detail;
+    if (button == "6") {
+      console.log("s " + pressed);
+    } else if (button == "4") {
+      console.log("w " + pressed);
+    } else if (button == "5") {
+      console.log("d " + pressed);
+    } else if (button == "7") {
+      console.log("a " + pressed);
+    } else {
+      console.log(button, pressed);
+    }
   });
 
   listener.start();
