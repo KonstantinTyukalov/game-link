@@ -1,0 +1,49 @@
+{
+  "folders": [
+    {
+      "name": "Configs (Root)",
+      "path": "."
+    },
+    {
+      "name": "Server",
+      "path": "src/main/server"
+    },
+    {
+      "name": "Client",
+      "path": "src/main/client"
+    },
+    {
+      "name": "Renderer",
+      "path": "src/renderer"
+    },
+    {
+      "name": "Build",
+      "path": ".webpack"
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "mhutchie.git-graph"
+    ]
+  },
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/build/**/*": true,
+      "**/.idea": true,
+      "**/.vs": true,
+      "**/*.sln": true,
+      "**/bin": true,
+      "**/obj": true
+    },
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
