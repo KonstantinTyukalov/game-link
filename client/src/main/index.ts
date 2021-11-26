@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
+import { io } from "socket.io-client";
 
 ipcMain.on("keyboardevent", (event, args) => {
   console.log(args); // prints "ping"
@@ -32,6 +33,8 @@ const createWindow = (): void => {
 
   // Open the DevTools.
   window.webContents.openDevTools();
+
+  const socket = io("http://10.0.7.73:9001");
 };
 
 app.on("ready", createWindow);
