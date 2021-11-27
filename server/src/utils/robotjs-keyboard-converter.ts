@@ -8,6 +8,6 @@ export class RobotjsKeyboardConverter {
   }
 
   static fixKeyFormat(key: string) {
-    return this.fixArrowsKeyFormat(key);
+    return this.fixArrowsKeyFormat(key.toLowerCase());
   }
 }
