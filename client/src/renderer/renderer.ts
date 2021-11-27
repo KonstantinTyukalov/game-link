@@ -19,11 +19,11 @@ const bridge = (window as any).bridge;
 document
   .getElementById("space_invaders_button")
   .addEventListener("click", () => {
-    bridge.ipcRenderer.send("game-start", "space_invaders");
+    bridge.ipcRenderer.send("game", "space_invaders");
   });
 document.getElementById("minecraft_button").addEventListener("click", () => {
-  bridge.ipcRenderer.send("game-start", "minecraft");
+  bridge.ipcRenderer.send("game", "minecraft");
 });
 document.getElementById("tetris_button").addEventListener("click", () => {
-  bridge.ipcRenderer.send("game-start", "tetris");
+  bridge.ipcRenderer.send("game", "tetris");
 });

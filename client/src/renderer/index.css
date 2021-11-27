@@ -17,6 +17,7 @@ div {
 }
 
 .gameBox {
+  opacity: 50%;
   height: 50rem;
   width: 37rem;
   background-color: #313329;
@@ -33,21 +34,21 @@ div {
   flex-wrap: wrap;
 }
 
-#first_game {
+#space_invaders_button {
   background-image: url(../images/space_invaders.png);
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
 
-#second_game {
+#minecraft_button {
   background-image: url(../images/minecraft.jpeg);
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
 }
 
-#third_game {
+#tetris_button {
   background-image: url(../images/tetris.jfif);
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -80,5 +81,6 @@ div {
 }
 
 .gameBox:hover {
-  backface-visibility: hidden;
+  height: 60rem;
+  opacity: 100%;
 }
