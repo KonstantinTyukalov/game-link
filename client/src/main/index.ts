@@ -38,6 +38,11 @@ ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
   socket.emit("mouseevent", event);
 });
 
+ipcMain.on("game", (_, game: string) => {
+  console.log(game);
+  socket.emit("game", game);
+});
+
 app.on("ready", createWindow);
 
 app.on("window-all-closed", () => {

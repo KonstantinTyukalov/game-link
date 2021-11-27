@@ -1,5 +1,6 @@
 import { subscribeToMouseEvents } from "./subscribers/mouse-events";
 import { subscribeToKeyboardEvents } from "./subscribers/keyboard-events";
+import "./index.css";
 
 declare const window: { bridge: unknown };
 

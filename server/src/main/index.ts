@@ -5,6 +5,7 @@ import { hadnleKeyboardEvent } from "./input-handlers/keyboard-input-handlers";
 import { handleMouseInput } from "./input-handlers/mouse-input-handlers";
 import { CustomKeyboardEvent } from "./interfaces/CustomKeyboardEvent";
 import { CustomMouseEvent } from "./interfaces/CustomMouseEvent";
+import { exec } from "child_process";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -25,6 +26,16 @@ const setupSocketConnection = (httpServer: HttpServer) => {
     socket.on("mouseevent", (event: CustomMouseEvent) => {
       console.log({ event });
       handleMouseInput(event);
+    });
+    socket.on("game", (game: string) => {
+      if (game == "tetris") {
+        exec('firefox "https://www.xarg.org/project/tetris/" -kiosk &');
+      } else if (game == "space_invaders") {
+        exec(
+          "firefox /home/qinamrug/Desktop/spaceinvaders/index.html -kiosk &"
+        );
+      }
+      console.log({ game });
     });
   });
 };
