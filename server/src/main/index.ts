@@ -14,13 +14,12 @@ if (require("electron-squirrel-startup")) {
 const setupSocketConnection = (httpServer: HttpServer) => {
   const io = new SocketServer(httpServer);
 
-  io.on("connection", () => {
-    console.log("New connection");
-  });
-
-  io.on("keyboardevent", (event: CustomKeyboardEvent) => {
-    console.log(event);
-    hadnleKeyboardEvent(event);
+  io.on("connection", (socket) => {
+    console.log("New connection: ", socket.id);
+    socket.on("keyboardevent", (event: CustomKeyboardEvent) => {
+      console.log(event);
+      hadnleKeyboardEvent(event);
+    });
   });
 };
 

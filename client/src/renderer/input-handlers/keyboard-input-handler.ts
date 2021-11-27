@@ -4,6 +4,5 @@ export const keyboardInputHandler = (event: KeyboardEvent): void => {
   const bridge = (window as any).bridge;
   bridge.ipcRenderer.send("keyboardevent", { type, key });
 
-  console.log("type", type);
-  console.log("key", key);
+  console.log("event at keyboard input", { type, key });
 };
