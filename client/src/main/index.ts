@@ -29,12 +29,12 @@ const createWindow = (): void => {
 const socket = io("http://10.0.7.73:9001");
 
 ipcMain.on("keyboardevent", (_, event: CustomKeyboardEvent) => {
-  console.log("event at ipc main", event);
+  console.log("event at ipc main", { event });
   socket.emit("keyboardevent", event);
 });
 
 ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
-  console.log(event);
+  console.log("event at ipc main", { event });
   socket.emit("mouseevent", event);
 });
 
