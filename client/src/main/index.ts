@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import { join } from "path";
 import { io } from "socket.io-client";
 import { CustomKeyboardEvent } from "./interfaces/CustomKeyboardEvent";
+import { CustomMouseEvent } from "./interfaces/CustomMouseEvent";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -32,9 +33,10 @@ ipcMain.on("keyboardevent", (_, event: CustomKeyboardEvent) => {
   socket.emit("keyboardevent", event);
 });
 
-// ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
-//   console.log(event);
-// });
+ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
+  console.log(event);
+  socket.emit("mouseevent", event);
+});
 
 app.on("ready", createWindow);
 

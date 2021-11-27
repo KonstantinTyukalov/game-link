@@ -20,6 +20,10 @@ const setupSocketConnection = (httpServer: HttpServer) => {
       console.log(event);
       hadnleKeyboardEvent(event);
     });
+    socket.on("mouseevent", (event: CustomKeyboardEvent) => {
+      console.log({ event });
+      // hadnleKeyboardEvent(event);
+    });
   });
 };
 
