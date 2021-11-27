@@ -2,7 +2,9 @@ import { app, BrowserWindow } from "electron";
 import { createServer, Server as HttpServer } from "http";
 import { Server as SocketServer } from "socket.io";
 import { hadnleKeyboardEvent } from "./input-handlers/keyboard-input-handlers";
+import { handleMouseInput } from "./input-handlers/mouse-input-handlers";
 import { CustomKeyboardEvent } from "./interfaces/CustomKeyboardEvent";
+import { CustomMouseEvent } from "./interfaces/CustomMouseEvent";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
@@ -20,9 +22,9 @@ const setupSocketConnection = (httpServer: HttpServer) => {
       console.log(event);
       hadnleKeyboardEvent(event);
     });
-    socket.on("mouseevent", (event: CustomKeyboardEvent) => {
+    socket.on("mouseevent", (event: CustomMouseEvent) => {
       console.log({ event });
-      // hadnleKeyboardEvent(event);
+      handleMouseInput(event);
     });
   });
 };
