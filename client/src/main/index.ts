@@ -31,6 +31,10 @@ ipcMain.on("keyboardevent", (_, event: CustomKeyboardEvent) => {
   console.log(event);
 });
 
+ipcMain.on("game", (_, game: String) => {
+  console.log(game);
+});
+
 // ipcMain.on("mouseevent", (_, event: CustomMouseEvent) => {
 //   console.log(event);
 // });
