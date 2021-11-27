@@ -1,14 +1,17 @@
 import robot from "robotjs";
+import { RobotjsKeyboardConverter } from "../../utils/robotjs-keyboard-converter";
 import { CustomKeyboardEvent } from "../interfaces/CustomKeyboardEvent";
 import { KeyboardKeyDownEvent } from "../interfaces/KeyboardKeyDownEvent";
 import { KeyboardKeyUpEvent } from "../interfaces/KeyboardKeyUpEvent";
 
 export const keyDownInputHandler = (event: KeyboardKeyDownEvent) => {
-  robot.keyToggle(event.key, "down");
+  const fixedKey = RobotjsKeyboardConverter.fixKeyFormat(event.key);
+  robot.keyToggle(fixedKey, "down");
 };
 
 export const keyUpInputHandler = (event: KeyboardKeyUpEvent) => {
-  robot.keyToggle(event.key, "up");
+  const fixedKey = RobotjsKeyboardConverter.fixKeyFormat(event.key);
+  robot.keyToggle(fixedKey, "up");
 };
 
 export const hadnleKeyboardEvent = (event: CustomKeyboardEvent) => {
