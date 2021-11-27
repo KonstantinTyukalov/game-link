@@ -1,4 +1,5 @@
 // import { subscribeToMouseEvents } from "./subscribers/mouse-events";
+import "./index.css";
 import { subscribeToKeyboardEvents } from "./subscribers/keyboard-events";
 
 declare const window: { bridge: unknown };
@@ -12,3 +13,17 @@ console.log(
 // subscribeToMouseEvents(document);
 
 subscribeToKeyboardEvents(document);
+
+const bridge = (window as any).bridge;
+
+document
+  .getElementById("space_invaders_button")
+  .addEventListener("click", () => {
+    bridge.ipcRenderer.send("game-start", "space_invaders");
+  });
+document.getElementById("minecraft_button").addEventListener("click", () => {
+  bridge.ipcRenderer.send("game-start", "minecraft");
+});
+document.getElementById("tetris_button").addEventListener("click", () => {
+  bridge.ipcRenderer.send("game-start", "tetris");
+});

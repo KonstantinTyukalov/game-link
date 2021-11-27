@@ -1,6 +1,84 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+  background: rgb(87, 217, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(87, 217, 255, 1) 0%,
+    rgba(120, 136, 255, 1) 48%,
+    rgba(196, 122, 255, 1) 100%
+  );
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: 0;
+}
+
+div {
+  color: rgb(255, 255, 255);
+  font-size: 32px;
+}
+
+.gameBox {
+  height: 50rem;
+  width: 37rem;
+  background-color: #313329;
+  margin: 21px;
+  border-radius: 15px;
+  box-shadow: -1px -1px 35px 1px rgba(0, 0, 0, 0.71);
+  -webkit-box-shadow: -1px -1px 35px 1px rgba(0, 0, 0, 0.71);
+  -moz-box-shadow: -1px -1px 35px 1px rgba(0, 0, 0, 0.71);
+}
+
+.container {
+  display: flex; /* or inline-flex */
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#first_game {
+  background-image: url(../images/space_invaders.png);
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+#second_game {
+  background-image: url(../images/minecraft.jpeg);
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+#third_game {
+  background-image: url(../images/tetris.jfif);
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.myButton {
+  margin-top: 40rem;
+  box-shadow: 4px 1px 19px 3px #000000;
+  background: linear-gradient(to bottom, #eae0c2 5%, #ccc2a6 100%);
+  background-color: #ffcc66;
+  border-radius: 23px;
+  display: inline-block;
+  cursor: pointer;
+  color: #505739;
+  font-family: Arial;
+  font-size: 5rem;
+  font-weight: bold;
+  padding: 18px 49px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+}
+.myButton:hover {
+  background: linear-gradient(to bottom, #ccc2a6 5%, #eae0c2 100%);
+  background-color: #ffffff;
+}
+.myButton:active {
+  position: relative;
+  top: 1px;
+}
+
+.gameBox:hover {
+  backface-visibility: hidden;
 }
